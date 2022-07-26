@@ -72,7 +72,12 @@ export default function Home() {
           <p>No videos to display yet. Type a keyword to start searching.</p>
         ) : (
           <>
-            <Dropdown label="Order By" orderBy={orderBy} setOrderBy={setOrderBy} onChange={searchHandler} />
+            <Dropdown
+              label="Order By"
+              orderBy={orderBy}
+              setOrderBy={setOrderBy}
+              onChange={searchHandler}
+            />
             <VideoPlayer selectedVideo={selectedVideo} />
             <ul className={styles.grid}>
               <VideoList
@@ -87,10 +92,10 @@ export default function Home() {
                 pageCount={pageCount}
                 forcePage={pageNumber}
                 onPageChange={changePage}
-                containerClassName={"paginationBtns"}
-                activeClassName={"paginationActive"}
-                previousLinkClassName={"previousBtn"}
-                nextLinkClassName={"nextBtn"}
+                containerClassName={styles.paginationBtns}
+                activeClassName={styles.paginationActive}
+                previousLinkClassName={styles.previousBtn}
+                nextLinkClassName={styles.nextBtn}
               />
             </ul>
           </>
@@ -98,7 +103,8 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        Developed by Gisele Lima & Powered by Youtube v3
+        <p>Developed by Gisele Lima</p>
+        <p>& Powered by Youtube v3</p>
       </footer>
     </div>
   );

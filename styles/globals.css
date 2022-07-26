@@ -15,40 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-.paginationBtns {
-  width: 80%;
-  height: 2rem;
-  list-style: none;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-left: 0;
-  max-width: 800px;
-  margin-top: 2rem;
-}
-
-.paginationBtns a {
-  padding: 0.6rem;
-  margin: 8px;
-  border-radius: 5px;
-  border: 1px solid #eaeaea;
-  cursor: pointer
-}
-
-.paginationBtns a:hover {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.paginationActive a {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.next a {
-  padding: 0.6rem 1.3rem;
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

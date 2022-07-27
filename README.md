@@ -5,9 +5,10 @@
 This mini frontend application includes the following features:
 * Search bar to receive user's input
 * Display of up to 50 videos once query is submitted
-* Dropdown menu with options to order searched videos by relevance(default), date, rating, title, number of views
+* Dropdown menu with options to order searched videos by relevance(default), date, rating, title and number of views
 * Video player to play the video clicked by user
 * Pagination displaying up to 10 videos per page
+* Responsive design
 
 ## Installation
 

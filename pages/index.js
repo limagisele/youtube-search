@@ -69,7 +69,9 @@ export default function Home() {
           setPageNumber={setPageNumber}
         />
         {searchResults.length == 0 ? (
-          <p>No videos to display yet. Type a keyword to start searching.</p>
+          <p data-testid="no-videos">
+            No videos to display yet. Type a keyword to start searching.
+          </p>
         ) : (
           <>
             <Dropdown

@@ -6,14 +6,7 @@ import ReactPaginate from "react-paginate";
 import VideoList from "../components/VideoList";
 import VideoPlayer from "../components/VideoPlayer";
 import Dropdown from "../components/Dropdown";
-
-const options = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY,
-    "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
-  },
-};
+import fetchApi from "./api/api";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,24 +24,16 @@ export default function Home() {
     setPageNumber(selected);
   };
 
-  useEffect(() => {
-    searchHandler(searchTerm, orderBy)
-  }, [orderBy])
-
-  const searchHandler = async (searchTerm, orderBy) => {
-    try {
-      if (searchTerm !== "") {
-        const res = await fetch(
-          `https://youtube-v31.p.rapidapi.com/search?q=${searchTerm}&part=snippet%2Cid&hl=en-US&maxResults=50&order=${orderBy}`,
-          options
-        );
-        const data = await res.json();
-        setSearchResults(data.items);
-      }
-    } catch (err) {
-      return err.message;
+  const searchHandler = async () => {
+    if (searchTerm !== "") {
+      const data = await fetchApi(searchTerm, orderBy);
+      setSearchResults(data);
     }
-  };  
+  };
+
+  useEffect(() => {
+    searchHandler();
+  }, [orderBy]);
 
   return (
     <div className={styles.container}>

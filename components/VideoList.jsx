@@ -4,8 +4,14 @@ const VideoList = ({
   searchResults,
   videosAlreadyDisplayed,
   videosPerPage,
-  setSelectedVideo
+  setSelectedVideo,
+  setOpen,
 }) => {
+  const handleClick = (item) => {
+    setSelectedVideo(item);
+    setOpen(true);
+  };
+
   return searchResults
     .slice(videosAlreadyDisplayed, videosAlreadyDisplayed + videosPerPage)
     .map((item, index) => {
@@ -13,12 +19,16 @@ const VideoList = ({
       const { title, thumbnails = {}, channelTitle, publishedAt } = snippet;
       const { medium = {} } = thumbnails;
       return (
-        <li key={index} className={styles.card} onClick={()=> setSelectedVideo(item)}>
+        <li
+          key={index}
+          className={styles.card}
+          onClick={() => handleClick(item)}
+        >
           <img
-          width={medium.width}
-          height={medium.height}
-          src={medium.url}
-          alt=""
+            width={medium.width}
+            height={medium.height}
+            src={medium.url}
+            alt=""
           />
           <h3>{title}</h3>
           <div className={styles.cardInfo}>
@@ -30,4 +40,4 @@ const VideoList = ({
     });
 };
 
-export default VideoList
+export default VideoList;

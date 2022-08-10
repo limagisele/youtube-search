@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import Search from "../components/Search";
 import ReactPaginate from "react-paginate";
 import VideoList from "../components/VideoList";
-import VideoPlayer from "../components/VideoPlayer";
 import Dropdown from "../components/Dropdown";
 import fetchApi from "./api/api";
+import VideoModal from "../components/VideoModal";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +14,7 @@ export default function Home() {
   const [selectedVideo, setSelectedVideo] = useState({});
   const [pageNumber, setPageNumber] = useState(0);
   const [orderBy, setOrderBy] = useState("relevance");
+  const [open, setOpen] = useState(false);
 
   const videosPerPage = 10;
   const videosAlreadyDisplayed = pageNumber * videosPerPage;
@@ -28,6 +29,8 @@ export default function Home() {
     if (searchTerm !== "") {
       const data = await fetchApi(searchTerm, orderBy);
       setSearchResults(data);
+    } else {
+      alert("Please type a keyword to start searching.");
     }
   };
 
@@ -65,26 +68,27 @@ export default function Home() {
               setOrderBy={setOrderBy}
               onChange={searchHandler}
             />
-            <VideoPlayer selectedVideo={selectedVideo} />
+            <VideoModal selectedVideo={selectedVideo} open={open} setOpen={setOpen} />
             <ul className={styles.grid}>
               <VideoList
                 searchResults={searchResults}
                 videosAlreadyDisplayed={videosAlreadyDisplayed}
                 videosPerPage={videosPerPage}
                 setSelectedVideo={setSelectedVideo}
-              />
-              <ReactPaginate
-                previousLabel="< Previous"
-                nextLabel="Next >"
-                pageCount={pageCount}
-                forcePage={pageNumber}
-                onPageChange={changePage}
-                containerClassName={styles.paginationBtns}
-                activeClassName={styles.paginationActive}
-                previousLinkClassName={styles.previousBtn}
-                nextLinkClassName={styles.nextBtn}
+                setOpen={setOpen}
               />
             </ul>
+            <ReactPaginate
+              previousLabel="<"
+              nextLabel=">"
+              pageCount={pageCount}
+              forcePage={pageNumber}
+              onPageChange={changePage}
+              containerClassName={styles.paginationBtns}
+              activeClassName={styles.paginationActive}
+              previousLinkClassName={styles.previousBtn}
+              nextLinkClassName={styles.nextBtn}
+            />
           </>
         )}
       </main>

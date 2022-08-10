@@ -12,6 +12,9 @@ const Search = ({
   orderBy,
 }) => {
   const submit = (e) => {
+    if (searchTerm === "") {
+      alert("Please type a keyword to start searching.")
+    }
     e.preventDefault();
     searchHandler(searchTerm, orderBy);
     setSelectedVideo({});

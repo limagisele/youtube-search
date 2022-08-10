@@ -29,8 +29,6 @@ export default function Home() {
     if (searchTerm !== "") {
       const data = await fetchApi(searchTerm, orderBy);
       setSearchResults(data);
-    } else {
-      alert("Please type a keyword to start searching.");
     }
   };
 

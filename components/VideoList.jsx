@@ -1,4 +1,7 @@
 import styles from "../styles/Home.module.css";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const VideoList = ({
   searchResults,
@@ -35,6 +38,13 @@ const VideoList = ({
             <p>Published on: {publishedAt.substring(0, 10)}</p>
             <p>By {channelTitle}</p>
           </div>
+          <IconButton
+            className={styles.favoriteIcon}
+            aria-label="add to favorites"
+            color="inherit"
+          >
+            <FavoriteBorderIcon />
+          </IconButton>
         </li>
       );
     });

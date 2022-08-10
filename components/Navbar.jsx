@@ -24,7 +24,7 @@ export default function NavBar() {
             </Link>
           </IconButton>
           <IconButton size="large" aria-label="favorite videos" color="inherit">
-            <Link href="/favorites">
+            <Link href="/favourites">
               <FavoriteIcon />
             </Link>
           </IconButton>

@@ -1,16 +1,5 @@
 import styles from "../styles/Home.module.css";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useEffect, useState } from "react";
-import { db } from "../pages/api/firebase-config";
-import {
-  collection,
-  getDocs,
-  setDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import FavouriteButton from "./FavouriteButton";
 
 const VideoList = ({
   searchResults,
@@ -19,27 +8,6 @@ const VideoList = ({
   setSelectedVideo,
   setOpen,
 }) => {
-  const [favourites, setFavourites] = useState([]);
-  const [saved, setSaved] = useState(false);
-
-  const toggleFav = async (item) => {
-    const alreadyInFavourites = favourites.some((el) =>
-      el._id === item.id.videoId ? true : false
-    );
-    if (alreadyInFavourites) {
-      await deleteDoc(doc(db, "favourites", item.id.videoId));
-    } else {
-      await setDoc(doc(db, "favourites", item.id.videoId), item);
-    }
-  };
-
-  useEffect(() => {
-    const getFavourites = async () => {
-      const data = await getDocs(collection(db, "favourites"));
-      setFavourites(data.docs.map((doc) => ({ ...doc.data(), _id: doc.id })));
-    };
-    getFavourites();
-  }, []);
 
   const handleClick = (item) => {
     setSelectedVideo(item);
@@ -66,14 +34,7 @@ const VideoList = ({
             <p>Published on: {publishedAt.substring(0, 10)}</p>
             <p>By {channelTitle}</p>
           </div>
-          <IconButton
-            className={styles.favoriteIcon}
-            aria-label="add to favorites"
-            color="inherit"
-            onClick={() => toggleFav(item)}
-          >
-            {saved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </IconButton>
+          <FavouriteButton item={item} />
         </li>
       );
     });

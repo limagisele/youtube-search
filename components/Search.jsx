@@ -10,10 +10,13 @@ const Search = ({
   setSelectedVideo,
   setPageNumber,
   orderBy,
+  setAlertContent,
+  setAlert
 }) => {
   const submit = (e) => {
     if (searchTerm === "") {
-      alert("Please type a keyword to start searching.")
+      setAlert(true);
+      setAlertContent("Please type a keyword to start searching.");
     }
     e.preventDefault();
     searchHandler(searchTerm, orderBy);

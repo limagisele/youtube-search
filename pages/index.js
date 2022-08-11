@@ -2,11 +2,13 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import Search from "../components/Search";
-import ReactPaginate from "react-paginate";
+import Pagination from "../components/Pagination";
 import VideoList from "../components/VideoList";
 import Dropdown from "../components/Dropdown";
 import fetchApi from "./api/api";
 import VideoModal from "../components/VideoModal";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,20 +17,21 @@ export default function Home() {
   const [pageNumber, setPageNumber] = useState(0);
   const [orderBy, setOrderBy] = useState("relevance");
   const [open, setOpen] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
 
-  const videosPerPage = 10;
+  const videosPerPage = 12;
   const videosAlreadyDisplayed = pageNumber * videosPerPage;
-
-  const pageCount = Math.ceil(searchResults.length / videosPerPage);
-
-  const changePage = ({ selected }) => {
-    setPageNumber(selected);
-  };
 
   const searchHandler = async () => {
     if (searchTerm !== "") {
       const data = await fetchApi(searchTerm, orderBy);
-      setSearchResults(data);
+      if (data) {
+        setSearchResults(data);
+      } else {
+        setAlert(true);
+        setAlertContent("Videos could not be loaded. Please try again.");
+      }
     }
   };
 
@@ -38,12 +41,18 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
+      {alert && (
+        <Stack sx={{ width: "60%", margin: "auto" }}>
+          <Alert severity="error" onClose={() => setAlert(false)}>
+            {alertContent}
+          </Alert>
+        </Stack>
+      )}
       <Head>
         <title>Youtube Search</title>
         <meta name="description" content="Youtube Videos Search App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
         <h1 className={styles.title}>Youtube Videos Search</h1>
         <Search
@@ -53,6 +62,8 @@ export default function Home() {
           searchHandler={searchHandler}
           setSelectedVideo={setSelectedVideo}
           setPageNumber={setPageNumber}
+          setAlert={setAlert}
+          setAlertContent={setAlertContent}
         />
         {searchResults.length == 0 ? (
           <p data-testid="no-videos">
@@ -66,7 +77,11 @@ export default function Home() {
               setOrderBy={setOrderBy}
               onChange={searchHandler}
             />
-            <VideoModal selectedVideo={selectedVideo} open={open} setOpen={setOpen} />
+            <VideoModal
+              selectedVideo={selectedVideo}
+              open={open}
+              setOpen={setOpen}
+            />
             <ul className={styles.grid}>
               <VideoList
                 searchResults={searchResults}
@@ -76,25 +91,15 @@ export default function Home() {
                 setOpen={setOpen}
               />
             </ul>
-            <ReactPaginate
-              previousLabel="<"
-              nextLabel=">"
-              pageCount={pageCount}
-              forcePage={pageNumber}
-              onPageChange={changePage}
-              containerClassName={styles.paginationBtns}
-              activeClassName={styles.paginationActive}
-              previousLinkClassName={styles.previousBtn}
-              nextLinkClassName={styles.nextBtn}
+            <Pagination
+              pageNumber={pageNumber}
+              videosPerPage={videosPerPage}
+              setPageNumber={setPageNumber}
+              searchResults={searchResults}
             />
           </>
         )}
       </main>
-
-      <footer className={styles.footer}>
-        <p>Developed by Gisele Lima</p>
-        <p>& Powered by Youtube v3</p>
-      </footer>
     </div>
   );
 }

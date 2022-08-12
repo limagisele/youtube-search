@@ -9,8 +9,6 @@ const Search = ({
   searchTerm,
   setSearchTerm,
   searchHandler,
-  setSelectedVideo,
-  setPageNumber,
   orderBy,
   setAlertContent,
   setAlert
@@ -23,9 +21,9 @@ const Search = ({
       setAlertContent("Please type a keyword to start searching.");
     }
     e.preventDefault();
+
     searchHandler(searchTerm, orderBy);
-    // setSelectedVideo({});
-    // setPageNumber(0);
+
     dispatch({
       type: "setSelectedVideo",
       data: {}
@@ -54,7 +52,7 @@ const Search = ({
         <FaTimes className={styles.closeIcon} onClick={clear} />
       </div>
       <button type="submit" onClick={submit}>
-        <Image src={youtube.src} alt="youtube icon" height={45} />
+        <Image src={youtube.src} alt="youtube icon" height={45} width={64} />
       </button>
     </form>
   );

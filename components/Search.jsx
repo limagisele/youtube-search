@@ -3,6 +3,7 @@ import styles from "../styles/Home.module.css";
 import youtube from "../assets/youtube.png"
 import { FaTimes } from "react-icons/fa";
 import useStore from "../reducers/reducer";
+import Image from "next/image";
 
 const Search = ({
   searchTerm,
@@ -53,7 +54,7 @@ const Search = ({
         <FaTimes className={styles.closeIcon} onClick={clear} />
       </div>
       <button type="submit" onClick={submit}>
-        <img src={youtube.src} alt="youtube icon" height="45" />
+        <Image src={youtube.src} alt="youtube icon" height={45} />
       </button>
     </form>
   );

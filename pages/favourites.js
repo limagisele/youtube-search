@@ -2,16 +2,14 @@ import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import { db } from "./api/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
-import useStore from "../reducers/reducer";
 import DisplayVideos from "../components/DisplayVideos";
 
-const favVideos = () => {
+export default function FavVideos() {
   const [favourites, setFavourites] = useState([]);
-  const favCollectionRef = collection(db, "favourites");
 
   useEffect(() => {
     const getFavourites = async () => {
-      const data = await getDocs(favCollectionRef);
+      const data = await getDocs(collection(db, "favourites"));
       setFavourites(data.docs.map((doc) => ({ ...doc.data(), _id: doc.id })));
     };
     getFavourites();
@@ -30,5 +28,3 @@ const favVideos = () => {
     </div>
   );
 };
-
-export default favVideos;

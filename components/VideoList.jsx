@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import FavouriteButton from "./FavouriteButton";
 
@@ -15,11 +16,11 @@ const VideoList = ({
       const { medium = {} } = thumbnails;
       return (
         <li key={index} className={styles.card}>
-          <img
+          <Image
             width={medium.width}
             height={medium.height}
             src={medium.url}
-            alt=""
+            alt={title}
             onClick={() => handleClick(item)}
           />
           <h3>{title}</h3>

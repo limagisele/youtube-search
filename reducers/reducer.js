@@ -5,6 +5,7 @@ const initialState = {
   selectedVideo: {},
   pageNumber: 0,
   open: false,
+  favourites: [],
 };
 
 function reducer(state, action) {
@@ -29,6 +30,11 @@ function reducer(state, action) {
         ...state,
         open: action.data,
       };
+    case "setFavourites":
+      return {
+        ...state,
+        favourites: action.data
+      }
     default:
       return state;
   }

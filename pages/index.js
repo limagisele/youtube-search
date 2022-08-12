@@ -2,32 +2,30 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import Search from "../components/Search";
-import Pagination from "../components/Pagination";
-import VideoList from "../components/VideoList";
 import Dropdown from "../components/Dropdown";
 import fetchApi from "./api/api";
-import VideoModal from "../components/VideoModal";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import useStore from "../reducers/reducer";
+import DisplayVideos from "../components/DisplayVideos";
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedVideo, setSelectedVideo] = useState({});
-  const [pageNumber, setPageNumber] = useState(0);
-  const [orderBy, setOrderBy] = useState("relevance");
-  const [open, setOpen] = useState(false);
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [orderBy, setOrderBy] = useState("relevance");
 
-  const videosPerPage = 12;
-  const videosAlreadyDisplayed = pageNumber * videosPerPage;
+  const [store, dispatch] = useStore();
+  const { searchResults } = store;
 
   const searchHandler = async () => {
     if (searchTerm !== "") {
       const data = await fetchApi(searchTerm, orderBy);
       if (data) {
-        setSearchResults(data);
+        dispatch({
+          type: "setSearchResults",
+          data: data,
+        });
       } else {
         setAlert(true);
         setAlertContent("Videos could not be loaded. Please try again.");
@@ -60,15 +58,11 @@ export default function Home() {
           orderBy={orderBy}
           setSearchTerm={setSearchTerm}
           searchHandler={searchHandler}
-          setSelectedVideo={setSelectedVideo}
-          setPageNumber={setPageNumber}
           setAlert={setAlert}
           setAlertContent={setAlertContent}
         />
         {searchResults.length == 0 ? (
-          <p data-testid="no-videos">
-            No videos to display yet. Type a keyword to start searching.
-          </p>
+          <p>No videos to display yet. Type a keyword to start searching.</p>
         ) : (
           <>
             <Dropdown
@@ -77,26 +71,7 @@ export default function Home() {
               setOrderBy={setOrderBy}
               onChange={searchHandler}
             />
-            <VideoModal
-              selectedVideo={selectedVideo}
-              open={open}
-              setOpen={setOpen}
-            />
-            <ul className={styles.grid}>
-              <VideoList
-                searchResults={searchResults}
-                videosAlreadyDisplayed={videosAlreadyDisplayed}
-                videosPerPage={videosPerPage}
-                setSelectedVideo={setSelectedVideo}
-                setOpen={setOpen}
-              />
-            </ul>
-            <Pagination
-              pageNumber={pageNumber}
-              videosPerPage={videosPerPage}
-              setPageNumber={setPageNumber}
-              searchResults={searchResults}
-            />
+            <DisplayVideos videos={searchResults} />
           </>
         )}
       </main>

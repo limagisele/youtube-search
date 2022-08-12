@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function VideoModal({ selectedVideo, open, setOpen }) {
+export default function VideoModal({ selectedVideo, open, handleClose }) {
   if (Object.keys(selectedVideo).length === 0) {
     return;
   }
@@ -28,7 +28,7 @@ export default function VideoModal({ selectedVideo, open, setOpen }) {
     <div>
       <Modal
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >

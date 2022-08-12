@@ -1,12 +1,8 @@
 import styles from "../styles/Home.module.css";
 import ReactPaginate from "react-paginate";
 
-const Pagination = ({ pageNumber, setPageNumber, searchResults, videosPerPage }) => {
-  const pageCount = Math.ceil(searchResults.length / videosPerPage);
-
-  const onPageChange = ({ selected }) => {
-    setPageNumber(selected);
-  };
+const Pagination = ({ videos, videosPerPage, pageNumber, onPageChange }) => {
+  const pageCount = Math.ceil(videos.length / videosPerPage);
 
   return (
     <>

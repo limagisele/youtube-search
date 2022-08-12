@@ -2,19 +2,12 @@ import styles from "../styles/Home.module.css";
 import FavouriteButton from "./FavouriteButton";
 
 const VideoList = ({
-  searchResults,
+  videos,
   videosAlreadyDisplayed,
   videosPerPage,
-  setSelectedVideo,
-  setOpen,
+  handleClick,
 }) => {
-
-  const handleClick = (item) => {
-    setSelectedVideo(item);
-    setOpen(true);
-  };
-
-  return searchResults
+  return videos
     .slice(videosAlreadyDisplayed, videosAlreadyDisplayed + videosPerPage)
     .map((item, index) => {
       const { id, snippet = {} } = item;

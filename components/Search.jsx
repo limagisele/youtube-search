@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 import youtube from "../assets/youtube.png"
 import { FaTimes } from "react-icons/fa";
+import useStore from "../reducers/reducer";
 
 const Search = ({
   searchTerm,
@@ -13,6 +14,8 @@ const Search = ({
   setAlertContent,
   setAlert
 }) => {
+  const [store, dispatch] = useStore();
+
   const submit = (e) => {
     if (searchTerm === "") {
       setAlert(true);
@@ -20,8 +23,16 @@ const Search = ({
     }
     e.preventDefault();
     searchHandler(searchTerm, orderBy);
-    setSelectedVideo({});
-    setPageNumber(0);
+    // setSelectedVideo({});
+    // setPageNumber(0);
+    dispatch({
+      type: "setSelectedVideo",
+      data: {}
+    })
+    dispatch({
+      type: "setPageNumber",
+      data: 0
+    })
   };
 
   const clear = (e) => {

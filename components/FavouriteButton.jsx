@@ -2,18 +2,13 @@ import styles from "../styles/Home.module.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { db } from "../pages/api/firebase-config";
-import {
-  collection,
-  getDocs,
-  setDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { setDoc, deleteDoc, doc } from "firebase/firestore";
+import StoreContext from "../contexts/store";
 
-const FavouriteButton = ({item}) => {
-  const [favourites, setFavourites] = useState([]);
+const FavouriteButton = ({ item }) => {
+  const { favourites } = useContext(StoreContext);
 
   const alreadyInFavourites = favourites.some((el) =>
     el._id === item.id.videoId ? true : false
@@ -26,14 +21,6 @@ const FavouriteButton = ({item}) => {
       await setDoc(doc(db, "favourites", item.id.videoId), item);
     }
   };
-
-  useEffect(() => {
-    const getFavourites = async () => {
-      const data = await getDocs(collection(db, "favourites"));
-      setFavourites(data.docs.map((doc) => ({ ...doc.data(), _id: doc.id })));
-    };
-    getFavourites();
-  }, [favourites]);
 
   return (
     <>

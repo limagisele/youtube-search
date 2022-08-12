@@ -1,19 +1,10 @@
 import styles from "../styles/Home.module.css";
-import { useEffect, useState } from "react";
-import { db } from "./api/firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { useContext } from "react";
 import DisplayVideos from "../components/DisplayVideos";
+import StoreContext from "../contexts/store";
 
 export default function FavVideos() {
-  const [favourites, setFavourites] = useState([]);
-
-  useEffect(() => {
-    const getFavourites = async () => {
-      const data = await getDocs(collection(db, "favourites"));
-      setFavourites(data.docs.map((doc) => ({ ...doc.data(), _id: doc.id })));
-    };
-    getFavourites();
-  }, [favourites]);
+  const { favourites } = useContext(StoreContext)
 
   return (
     <div className={styles.container}>

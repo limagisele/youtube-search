@@ -1,41 +1,45 @@
-import React from "react";
+import { useContext } from "react";
+import StoreContext from "../contexts/store";
 import styles from "../styles/Pages.module.css";
-import youtube from "../assets/youtube.png"
+import youtube from "../assets/youtube.png";
 import { FaTimes } from "react-icons/fa";
-import useStore from "../reducers/reducer";
 import Image from "next/image";
 
-const Search = ({
-  searchTerm,
-  handleEmptyInput,
-  setSearchTerm,
-  searchHandler,
-  orderBy
-}) => {
-  const [store, dispatch] = useStore();
+const Search = ({ handleEmptyInput, searchHandler, searchTerm, orderBy }) => {
+  const { dispatch } = useContext(StoreContext);
 
   const submit = (e) => {
     e.preventDefault();
 
     if (searchTerm === "") {
-      handleEmptyInput()
+      handleEmptyInput();
     } else {
       searchHandler(searchTerm, orderBy);
-  
+
       dispatch({
         type: "setSelectedVideo",
-        data: {}
-      })
+        data: {},
+      });
       dispatch({
         type: "setPageNumber",
-        data: 0
-      })
+        data: 0,
+      });
     }
   };
 
+  const handleInput = (e) => {
+    dispatch({
+      type: "setSearchTerm",
+      data: e.target.value,
+    });
+  };
+
   const clear = (e) => {
-    setSearchTerm("")
-  }
+    dispatch({
+      type: "setSearchTerm",
+      data: "",
+    });
+  };
 
   return (
     <form className={styles.form} onSubmit={submit}>
@@ -46,7 +50,7 @@ const Search = ({
           type="text"
           value={searchTerm}
           placeholder="Enter search keywords"
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleInput}
         />
         <FaTimes className={styles.closeIcon} onClick={clear} />
       </div>

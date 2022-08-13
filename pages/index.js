@@ -1,18 +1,15 @@
 import Head from "next/head";
 import styles from "../styles/Pages.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import StoreContext from "../contexts/store";
 import Search from "../components/Search";
 import Dropdown from "../components/Dropdown";
 import fetchApi from "./api/api";
 import DisplayVideos from "../components/DisplayVideos";
 
-export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [orderBy, setOrderBy] = useState("relevance");
-  
+export default function Home() {  
   const {
-    store: { searchResults },
+    store: { searchResults, searchTerm, orderBy },
     dispatch,
   } = useContext(StoreContext);
 
@@ -56,8 +53,7 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Youtube Search</title>
-        <meta name="description" content="Youtube Videos Search App" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Youtube Videos Search" />
       </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>Youtube Videos Search</h1>
@@ -65,7 +61,6 @@ export default function Home() {
           searchTerm={searchTerm}
           handleEmptyInput={handleEmptyInput}
           orderBy={orderBy}
-          setSearchTerm={setSearchTerm}
           searchHandler={searchHandler}
         />
         {searchResults.length === 0 ? (
@@ -75,7 +70,6 @@ export default function Home() {
             <Dropdown
               label="Order By"
               orderBy={orderBy}
-              setOrderBy={setOrderBy}
               onChange={searchHandler}
             />
             <DisplayVideos videos={searchResults} />

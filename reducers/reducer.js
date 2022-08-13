@@ -8,10 +8,22 @@ const initialState = {
   favourites: [],
   alert: false,
   alertContent: "",
+  searchTerm: "",
+  orderBy: "relevance",
 };
 
 function reducer(state, action) {
   switch (action.type) {
+    case "setSearchTerm":
+      return {
+        ...state,
+        searchTerm: action.data,
+      };
+    case "setOrderBy":
+      return {
+        ...state,
+        orderBy: action.data,
+      };
     case "setSearchResults":
       return {
         ...state,

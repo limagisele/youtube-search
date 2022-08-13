@@ -6,7 +6,7 @@ import StoreContext from "../contexts/store";
 const Alerts = () => {
   const {
     store: { alert, alertContent },
-    dispatch
+    dispatch,
   } = useContext(StoreContext);
 
   const handleClose = () => {
@@ -19,7 +19,7 @@ const Alerts = () => {
   return (
     <>
       {alert && (
-        <Stack sx={{ width: "60%", margin: "auto" }}>
+        <Stack sx={{ width: "80%", margin: "auto", position: "sticky", top: 0, zIndex: 2 }}>
           <Alert severity="error" onClose={handleClose}>
             {alertContent}
           </Alert>
@@ -27,6 +27,6 @@ const Alerts = () => {
       )}
     </>
   );
-}
+};
 
 export default Alerts;

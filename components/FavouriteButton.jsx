@@ -39,7 +39,14 @@ const FavouriteButton = ({ item }) => {
       });
     }
     catch {
-
+      dispatch({
+        type: "setAlert",
+        data: true,
+      });
+      dispatch({
+        type: "setAlertContent",
+        data: "Sorry, video could not be saved. Please try again.",
+      });
     }
   };
 

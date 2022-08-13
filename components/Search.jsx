@@ -7,31 +7,30 @@ import Image from "next/image";
 
 const Search = ({
   searchTerm,
+  handleEmptyInput,
   setSearchTerm,
   searchHandler,
-  orderBy,
-  setAlertContent,
-  setAlert
+  orderBy
 }) => {
   const [store, dispatch] = useStore();
 
   const submit = (e) => {
-    if (searchTerm === "") {
-      setAlert(true);
-      setAlertContent("Please type a keyword to start searching.");
-    }
     e.preventDefault();
 
-    searchHandler(searchTerm, orderBy);
-
-    dispatch({
-      type: "setSelectedVideo",
-      data: {}
-    })
-    dispatch({
-      type: "setPageNumber",
-      data: 0
-    })
+    if (searchTerm === "") {
+      handleEmptyInput()
+    } else {
+      searchHandler(searchTerm, orderBy);
+  
+      dispatch({
+        type: "setSelectedVideo",
+        data: {}
+      })
+      dispatch({
+        type: "setPageNumber",
+        data: 0
+      })
+    }
   };
 
   const clear = (e) => {

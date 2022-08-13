@@ -10,13 +10,10 @@ import useStore from "../reducers/reducer";
 import DisplayVideos from "../components/DisplayVideos";
 
 export default function Home() {
-  const [alert, setAlert] = useState(false);
-  const [alertContent, setAlertContent] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [orderBy, setOrderBy] = useState("relevance");
-
   const [store, dispatch] = useStore();
-  const { searchResults } = store;
+  const { searchResults, alert, alertContent } = store;
 
   const searchHandler = async () => {
     if (searchTerm !== "") {
@@ -27,8 +24,14 @@ export default function Home() {
           data: data,
         });
       } else {
-        setAlert(true);
-        setAlertContent("Videos could not be loaded. Please try again.");
+        dispatch({
+          type: "setAlert",
+          data: true,
+        });
+        dispatch({
+          type: "setAlertContent",
+          data: "Videos could not be loaded. Please try again.",
+        });
       }
     }
   };
@@ -37,11 +40,29 @@ export default function Home() {
     searchHandler();
   }, [orderBy]);
 
+  const handleClose = () => {
+    dispatch({
+      type: "setAlert",
+      data: false,
+    });
+  }
+
+  const handleEmptyInput = () => {
+    dispatch({
+      type: "setAlert",
+      data: true,
+    });
+    dispatch({
+      type: "setAlertContent",
+      data: "Please type a keyword to start searching.",
+    });
+  }
+
   return (
     <div className={styles.container}>
       {alert && (
         <Stack sx={{ width: "60%", margin: "auto" }}>
-          <Alert severity="error" onClose={() => setAlert(false)}>
+          <Alert severity="error" onClose={handleClose}>
             {alertContent}
           </Alert>
         </Stack>
@@ -55,13 +76,12 @@ export default function Home() {
         <h1 className={styles.title}>Youtube Videos Search</h1>
         <Search
           searchTerm={searchTerm}
+          handleEmptyInput={handleEmptyInput}
           orderBy={orderBy}
           setSearchTerm={setSearchTerm}
           searchHandler={searchHandler}
-          setAlert={setAlert}
-          setAlertContent={setAlertContent}
         />
-        {searchResults.length == 0 ? (
+        {searchResults.length === 0 ? (
           <p>No videos to display yet. Type a keyword to start searching.</p>
         ) : (
           <>

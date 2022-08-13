@@ -9,7 +9,6 @@ import { useEffect } from 'react'
 
 function MyApp({ Component, pageProps }) {
   const [store, dispatch] = useStore()
-  const {favourites} = store
 
   useEffect(() => {
     const getFavourites = async () => {
@@ -21,11 +20,11 @@ function MyApp({ Component, pageProps }) {
       })
     };
     getFavourites();
-  }, [favourites]);
+  }, []);
 
   return (
     <>
-      <StoreContext.Provider value={favourites}>
+      <StoreContext.Provider value={{ store, dispatch }}>
         <NavBar />
         <Component {...pageProps} />
         <Footer />

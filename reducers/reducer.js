@@ -6,6 +6,8 @@ const initialState = {
   pageNumber: 0,
   open: false,
   favourites: [],
+  alert: false,
+  alertContent: "",
 };
 
 function reducer(state, action) {
@@ -33,8 +35,18 @@ function reducer(state, action) {
     case "setFavourites":
       return {
         ...state,
-        favourites: action.data
-      }
+        favourites: action.data,
+      };
+    case "setAlert":
+      return {
+        ...state,
+        alert: action.data,
+      };
+    case "setAlertContent":
+      return {
+        ...state,
+        alertContent: action.data,
+      };
     default:
       return state;
   }

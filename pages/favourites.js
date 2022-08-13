@@ -4,7 +4,9 @@ import DisplayVideos from "../components/DisplayVideos";
 import StoreContext from "../contexts/store";
 
 export default function FavVideos() {
-  const { favourites } = useContext(StoreContext)
+  const {
+    store: { favourites },
+  } = useContext(StoreContext);
 
   return (
     <div className={styles.container}>
@@ -18,4 +20,4 @@ export default function FavVideos() {
       </main>
     </div>
   );
-};
+}

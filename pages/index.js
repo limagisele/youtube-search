@@ -1,19 +1,20 @@
 import Head from "next/head";
 import styles from "../styles/Pages.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import StoreContext from "../contexts/store";
 import Search from "../components/Search";
 import Dropdown from "../components/Dropdown";
 import fetchApi from "./api/api";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
-import useStore from "../reducers/reducer";
 import DisplayVideos from "../components/DisplayVideos";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [orderBy, setOrderBy] = useState("relevance");
-  const [store, dispatch] = useStore();
-  const { searchResults, alert, alertContent } = store;
+  
+  const {
+    store: { searchResults },
+    dispatch,
+  } = useContext(StoreContext);
 
   const searchHandler = async () => {
     if (searchTerm !== "") {
@@ -40,13 +41,6 @@ export default function Home() {
     searchHandler();
   }, [orderBy]);
 
-  const handleClose = () => {
-    dispatch({
-      type: "setAlert",
-      data: false,
-    });
-  }
-
   const handleEmptyInput = () => {
     dispatch({
       type: "setAlert",
@@ -60,13 +54,6 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      {alert && (
-        <Stack sx={{ width: "60%", margin: "auto" }}>
-          <Alert severity="error" onClose={handleClose}>
-            {alertContent}
-          </Alert>
-        </Stack>
-      )}
       <Head>
         <title>Youtube Search</title>
         <meta name="description" content="Youtube Videos Search App" />

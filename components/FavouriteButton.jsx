@@ -14,8 +14,10 @@ import {
 } from "firebase/firestore";
 
 const FavouriteButton = ({ item }) => {
-  const { store, dispatch } = useContext(StoreContext);
-  const { favourites } = store;
+  const {
+    store: { favourites },
+    dispatch,
+  } = useContext(StoreContext);
 
   const alreadyInFavourites = favourites.some((el) =>
     el._id === item.id.videoId ? true : false

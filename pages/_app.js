@@ -6,6 +6,7 @@ import StoreContext from '../contexts/store'
 import { db } from "../pages/api/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect } from 'react'
+import Alerts from '../components/Alerts'
 
 function MyApp({ Component, pageProps }) {
   const [store, dispatch] = useStore()
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <StoreContext.Provider value={{ store, dispatch }}>
         <NavBar />
+        <Alerts />
         <Component {...pageProps} />
         <Footer />
       </StoreContext.Provider>

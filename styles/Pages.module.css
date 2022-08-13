@@ -54,11 +54,11 @@
   position: relative;
 }
 
-.closeIcon {
+.clearIcon {
   position: absolute;
-  top: 30%;
-  right: 2%;
+  right: 120%;  
   cursor: pointer;
+  color: gray;
 }
 
 .form button {
@@ -126,6 +126,13 @@
   float: bottom;
   position: absolute;
   bottom: 0;
+  right: 0;
+}
+
+.closeModal {
+  float: top;
+  position: absolute;
+  top: 0;
   right: 0;
 }
 

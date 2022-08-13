@@ -13,19 +13,22 @@ export default function NavBar() {
       <AppBar position="static" color="transparent">
         <Toolbar>
           <IconButton
-            size="large"
             edge="start"
             color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
+            aria-label="home"
+            sx={{ m: 3 }}
           >
             <Link href="/">
-              <HomeIcon />
+              <HomeIcon fontSize="large" />
             </Link>
           </IconButton>
-          <IconButton size="large" aria-label="favorite videos" color="inherit">
+          <IconButton
+            aria-label="favorite videos"
+            color="inherit"
+            sx={{ m: 3 }}
+          >
             <Link href="/favourites">
-              <FavoriteIcon />
+              <FavoriteIcon fontSize="large" />
             </Link>
           </IconButton>
         </Toolbar>

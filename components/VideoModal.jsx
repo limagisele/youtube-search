@@ -3,14 +3,16 @@ import Modal from "@mui/material/Modal";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import styles from "../styles/Pages.module.css";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: 600,
+  width: "80vw",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -29,10 +31,13 @@ export default function VideoModal({ selectedVideo, open, handleClose }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="video-player"
+        aria-describedby="modal-to-play-selected-youtube-video"
       >
         <Card sx={style}>
+          <IconButton className={styles.closeModal} onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
           <CardActionArea>
             <CardMedia
               component="iframe"

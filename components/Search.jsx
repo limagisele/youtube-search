@@ -2,8 +2,9 @@ import { useContext } from "react";
 import StoreContext from "../contexts/store";
 import styles from "../styles/Pages.module.css";
 import youtube from "../assets/youtube.png";
-import { FaTimes } from "react-icons/fa";
 import Image from "next/image";
+import { IconButton } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const Search = ({ handleEmptyInput, searchHandler, searchTerm, orderBy }) => {
   const { dispatch } = useContext(StoreContext);
@@ -52,7 +53,9 @@ const Search = ({ handleEmptyInput, searchHandler, searchTerm, orderBy }) => {
           placeholder="Enter search keywords"
           onChange={handleInput}
         />
-        <FaTimes className={styles.closeIcon} onClick={clear} />
+        <IconButton onClick={clear}>
+          <ClearIcon className={styles.clearIcon} fontSize="small" />
+        </IconButton>
       </div>
       <button type="submit" onClick={submit}>
         <Image src={youtube.src} alt="youtube icon" height={45} width={64} />

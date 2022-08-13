@@ -1,7 +1,7 @@
 import VideoModal from "./VideoModal";
 import VideoList from "./VideoList";
 import Pagination from "./Pagination";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Pages.module.css";
 import useStore from "../reducers/reducer";
 
 const DisplayVideos = ({ videos }) => {

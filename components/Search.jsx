@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Pages.module.css";
 import youtube from "../assets/youtube.png"
 import { FaTimes } from "react-icons/fa";
 import useStore from "../reducers/reducer";

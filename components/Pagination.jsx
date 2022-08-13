@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Pages.module.css";
 import ReactPaginate from "react-paginate";
 
 const Pagination = ({ videos, videosPerPage, pageNumber, onPageChange }) => {

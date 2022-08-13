@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Pages.module.css";
 import { useEffect, useState } from "react";
 import Search from "../components/Search";
 import Dropdown from "../components/Dropdown";

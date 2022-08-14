@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, IconButton } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "../styles/Pages.module.css";
 
@@ -35,9 +35,9 @@ export default function VideoModal({ selectedVideo, open, handleClose }) {
         aria-describedby="modal-to-play-selected-youtube-video"
       >
         <Card sx={style}>
-          <IconButton className={styles.closeModal} onClick={handleClose}>
+          <button className={styles.closeModal} onClick={handleClose}>
             <CloseIcon />
-          </IconButton>
+          </button>
           <CardActionArea>
             <CardMedia
               component="iframe"

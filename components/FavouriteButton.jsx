@@ -1,7 +1,6 @@
 import styles from "../styles/Pages.module.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import IconButton from "@mui/material/IconButton";
 import { useContext } from "react";
 import StoreContext from "../contexts/store";
 import { db } from "../pages/api/firebase-config";
@@ -24,7 +23,7 @@ const FavouriteButton = ({ item }) => {
   );
 
   const toggleFav = async (item) => {
-    let dataDb
+    let dataDb;
     try {
       if (alreadyInFavourites) {
         await deleteDoc(doc(db, "favourites", item.id.videoId));
@@ -37,8 +36,7 @@ const FavouriteButton = ({ item }) => {
         type: "setFavourites",
         data: dataDb.docs.map((doc) => ({ ...doc.data(), _id: doc.id })),
       });
-    }
-    catch {
+    } catch {
       dispatch({
         type: "setAlert",
         data: true,
@@ -52,14 +50,17 @@ const FavouriteButton = ({ item }) => {
 
   return (
     <>
-      <IconButton
+      <button
         className={styles.favoriteIcon}
         aria-label="add to favorites"
-        color="inherit"
         onClick={() => toggleFav(item)}
       >
-        {alreadyInFavourites ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-      </IconButton>
+        {alreadyInFavourites ? (
+          <FavoriteIcon color="inherit" />
+        ) : (
+          <FavoriteBorderIcon color="inherit" />
+        )}
+      </button>
     </>
   );
 };

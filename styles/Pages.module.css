@@ -108,6 +108,10 @@
   position: relative;
 }
 
+.card h3 {
+  font-size: 1rem;
+}
+
 .card:hover,
 .card:focus,
 .card:active {
@@ -125,6 +129,8 @@
   position: absolute;
   bottom: 0;
   right: 0;
+  background-color: transparent;
+  border: none;
 }
 
 .closeModal {

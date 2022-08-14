@@ -3,12 +3,12 @@
 }
 
 .main {
-  min-height: 80vh;
+  min-height: 78vh;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  font-size: 1.2rem;
 }
 
 .footer {
@@ -17,7 +17,7 @@
 }
 
 .title {
-  margin: 0;
+  margin: 4rem 0;
   line-height: 1.15;
   font-size: 4rem;
   text-align: center;
@@ -28,7 +28,6 @@
   flex-wrap: wrap;
   align-items: center;
   margin: 2rem 0;
-  max-width: 600px;
   justify-content: center;
 }
 
@@ -38,10 +37,10 @@
 
 .form input[type="text"] {
   border: 1px solid #eaeaea;
-  padding: 10px;
+  padding: 15px;
   border-radius: 4px;
-  font-size: 16px;
-  width: 20rem;
+  font-size: 1.5rem;
+  width: 30rem;
 }
 
 .form input[type="text"]:focus {
@@ -56,9 +55,10 @@
 
 .clearIcon {
   position: absolute;
-  right: 120%;  
-  cursor: pointer;
+  top: 30%;
+  right: 3%;
   color: gray;
+  cursor: pointer;
 }
 
 .form button {
@@ -69,12 +69,12 @@
 }
 
 .dropdown {
-  margin-bottom: 1rem;
+  margin: 2rem 0;
 }
 
 .dropdown select {
   padding: 0.2rem;
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin-left: 1rem;
 }
 
@@ -117,20 +117,17 @@
 
 .cardInfo {
   font-size: 0.8rem;
-  float: bottom;
   position: absolute;
   bottom: 0;
 }
 
 .favoriteIcon {
-  float: bottom;
   position: absolute;
   bottom: 0;
   right: 0;
 }
 
 .closeModal {
-  float: top;
   position: absolute;
   top: 0;
   right: 0;
@@ -183,6 +180,9 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
+  }
+  .form input[type="text"] {
+    width: 80vw;
   }
 }
 

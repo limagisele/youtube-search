@@ -3,7 +3,6 @@ import StoreContext from "../contexts/store";
 import styles from "../styles/Pages.module.css";
 import youtube from "../assets/youtube.png";
 import Image from "next/image";
-import { IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 
 const Search = ({ handleEmptyInput, searchHandler, searchTerm, orderBy }) => {
@@ -50,15 +49,24 @@ const Search = ({ handleEmptyInput, searchHandler, searchTerm, orderBy }) => {
           id="video-search"
           type="text"
           value={searchTerm}
-          placeholder="Enter search keywords"
+          placeholder="Search keywords..."
           onChange={handleInput}
         />
-        <IconButton onClick={clear}>
-          <ClearIcon className={styles.clearIcon} fontSize="small" />
-        </IconButton>
+        <ClearIcon
+          className={styles.clearIcon}
+          fontSize="small"
+          onClick={clear}
+          role="button"
+        />
       </div>
-      <button type="submit" onClick={submit}>
-        <Image src={youtube.src} alt="youtube icon" height={45} width={64} />
+      <button type="submit">
+        <Image
+          src={youtube.src}
+          alt="youtube icon"
+          height={57}
+          width={81}
+          onClick={submit}
+        />
       </button>
     </form>
   );

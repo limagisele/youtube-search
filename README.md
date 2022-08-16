@@ -3,10 +3,11 @@
 
 ## Features
 This mini frontend application includes the following features:
-* Search bar to receive user's input
-* Display of up to 50 videos once query is submitted
+* Searching videos using API call
+* Display of up to 50 videos once user's query is submitted
 * Dropdown menu with options to order searched videos by relevance(default), date, rating, title and number of views
-* Video player to play the video clicked by user
+* Favourite videos can be saved and retrieved via Firebase/Firestore
+* Video player to play the video selected by user
 * Pagination displaying up to 10 videos per page
 * Responsive design
 

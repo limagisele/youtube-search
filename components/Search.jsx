@@ -5,7 +5,7 @@ import youtube from "../assets/youtube.png";
 import Image from "next/image";
 import ClearIcon from "@mui/icons-material/Clear";
 
-const Search = ({ handleEmptyInput, searchHandler, searchTerm, orderBy }) => {
+const Search = ({ handleEmptyInput, handleSearch, searchTerm, orderBy }) => {
   const { dispatch } = useContext(StoreContext);
 
   const submit = (e) => {
@@ -14,7 +14,7 @@ const Search = ({ handleEmptyInput, searchHandler, searchTerm, orderBy }) => {
     if (searchTerm === "") {
       handleEmptyInput();
     } else {
-      searchHandler(searchTerm, orderBy);
+      handleSearch(searchTerm, orderBy);
 
       dispatch({
         type: "setSelectedVideo",

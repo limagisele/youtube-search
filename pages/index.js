@@ -7,13 +7,13 @@ import Dropdown from "../components/Dropdown";
 import fetchApi from "./api/api";
 import DisplayVideos from "../components/DisplayVideos";
 
-export default function Home() {  
+export default function Home() {
   const {
     store: { searchResults, searchTerm, orderBy },
     dispatch,
   } = useContext(StoreContext);
 
-  const searchHandler = async () => {
+  const handleSearch = async () => {
     if (searchTerm !== "") {
       const data = await fetchApi(searchTerm, orderBy);
       if (data) {
@@ -35,7 +35,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    searchHandler();
+    handleSearch();
   }, [orderBy]);
 
   const handleEmptyInput = () => {
@@ -47,7 +47,7 @@ export default function Home() {
       type: "setAlertContent",
       data: "Please type a keyword to start searching.",
     });
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -61,7 +61,7 @@ export default function Home() {
           searchTerm={searchTerm}
           handleEmptyInput={handleEmptyInput}
           orderBy={orderBy}
-          searchHandler={searchHandler}
+          handleSearch={handleSearch}
         />
         {searchResults.length === 0 ? (
           <p>No videos to display yet. Type a keyword to start searching.</p>
@@ -70,7 +70,7 @@ export default function Home() {
             <Dropdown
               label="Order By"
               orderBy={orderBy}
-              onChange={searchHandler}
+              onChange={handleSearch}
             />
             <DisplayVideos videos={searchResults} />
           </>
@@ -79,4 +79,3 @@ export default function Home() {
     </div>
   );
 }
-
